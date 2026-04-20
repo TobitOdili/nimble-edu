@@ -331,28 +331,34 @@
       }
       var row = btn.parentElement;
 
-      /* Collapse the input */
-      input.style.transition = 'max-width 0.4s ease, opacity 0.3s ease, padding 0.4s ease';
-      input.style.maxWidth = '0';
-      input.style.opacity = '0';
-      input.style.padding = '0';
-      input.style.overflow = 'hidden';
+      /* Lock current size so nothing shifts during the swap */
+      row.style.width  = row.offsetWidth  + 'px';
+      row.style.height = row.offsetHeight + 'px';
 
-      /* Turn the whole pill green */
-      row.style.transition = 'background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease, justify-content 0s 0.4s';
-      row.style.background = '#059669';
-      row.style.borderColor = '#059669';
-      row.style.boxShadow = 'none';
-      setTimeout(function() { row.style.justifyContent = 'center'; }, 380);
+      /* Fade out the pill */
+      row.style.transition = 'opacity 0.15s ease';
+      row.style.opacity = '0';
 
-      /* Swap button to transparent so it blends into the pill */
-      btn.style.transition = 'background 0.4s ease';
-      btn.style.background = 'transparent';
-      btn.style.color = '#fff';
-      btn.textContent = '🎉 You are on the list!';
-      btn.disabled = true;
+      setTimeout(function() {
+        /* Swap content while invisible — no layout shift visible */
+        input.remove();
+        row.style.background   = '#059669';
+        row.style.borderColor  = '#059669';
+        row.style.boxShadow    = 'none';
+        row.style.justifyContent = 'center';
+        row.style.padding      = '0.35rem';
+        btn.style.background   = 'transparent';
+        btn.style.color        = '#fff';
+        btn.style.padding      = '0.45rem 1rem';
+        btn.textContent        = '🎉 You are on the list!';
+        btn.disabled           = true;
 
-      launchConfetti(btn);
+        /* Fade back in */
+        row.style.transition = 'opacity 0.25s ease';
+        row.style.opacity    = '1';
+
+        launchConfetti(btn);
+      }, 160);
     }
   </script>
 
