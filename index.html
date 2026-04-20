@@ -329,11 +329,29 @@
         setTimeout(function() { input.style.outline = ''; }, 1500);
         return;
       }
-      /* Keep layout stable — hide input but preserve its space */
-      input.style.visibility = 'hidden';
+      var row = btn.parentElement;
+
+      /* Collapse the input */
+      input.style.transition = 'max-width 0.4s ease, opacity 0.3s ease, padding 0.4s ease';
+      input.style.maxWidth = '0';
+      input.style.opacity = '0';
+      input.style.padding = '0';
+      input.style.overflow = 'hidden';
+
+      /* Turn the whole pill green */
+      row.style.transition = 'background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease, justify-content 0s 0.4s';
+      row.style.background = '#059669';
+      row.style.borderColor = '#059669';
+      row.style.boxShadow = 'none';
+      setTimeout(function() { row.style.justifyContent = 'center'; }, 380);
+
+      /* Swap button to transparent so it blends into the pill */
+      btn.style.transition = 'background 0.4s ease';
+      btn.style.background = 'transparent';
+      btn.style.color = '#fff';
       btn.textContent = '🎉 You are on the list!';
-      btn.style.background = '#059669';
       btn.disabled = true;
+
       launchConfetti(btn);
     }
   </script>
