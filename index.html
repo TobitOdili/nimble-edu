@@ -146,6 +146,23 @@
       color: var(--sub);
       margin-top: 0.75rem;
     }
+    .form-success {
+      display: none;
+      margin-top: 0.75rem;
+      font-size: 0.9rem;
+      color: #059669;
+      font-weight: 500;
+    }
+    [data-fs-success].fs-success-visible { display: block; }
+    .form-error {
+      display: block;
+      font-size: 0.8rem;
+      color: #DC2626;
+      margin-top: 0.25rem;
+      min-height: 1.1em;
+    }
+    /* Dim submit button while Formspree is submitting */
+    [data-fs-submit-btn]:disabled { opacity: 0.6; cursor: not-allowed; }
     .hero-visual {
       background: var(--teal-bg);
       border-radius: 16px;
@@ -636,10 +653,13 @@
           Nimble gives you both — a child engaged in something that actually builds their
           hands and brain, and 20 to 30 minutes you can take back without the guilt.
         </p>
-        <form class="hero-form" id="signup" onsubmit="handleSubmit(event)">
-          <input type="email" placeholder="Your email address" required />
-          <button type="submit">Join the waitlist</button>
+        <form class="hero-form" id="signup">
+          <input type="email" name="email" placeholder="Your email address" required data-fs-field />
+          <button type="submit" data-fs-submit-btn>Join the waitlist</button>
         </form>
+        <span class="form-error" data-fs-error="email"></span>
+        <span class="form-error" data-fs-error></span>
+        <p class="form-success" data-fs-success>You're on the list! We'll be in touch before Q1 boxes ship.</p>
         <p class="hero-note">First 100 families get 20% off their first box. No spam, ever.</p>
       </div>
       <div class="hero-visual">
@@ -855,10 +875,13 @@
     <div class="container" style="text-align:center;">
       <h2>Something for them to do. Something that actually builds.</h2>
       <p>Join the waitlist. First boxes ship Q1 2026.</p>
-      <form class="cta-form" onsubmit="handleSubmit(event)">
-        <input type="email" placeholder="Your email address" required />
-        <button type="submit">Get early access</button>
+      <form class="cta-form" id="cta-form">
+        <input type="email" name="email" placeholder="Your email address" required data-fs-field />
+        <button type="submit" data-fs-submit-btn>Get early access</button>
       </form>
+      <span class="form-error" data-fs-error="email"></span>
+      <span class="form-error" data-fs-error></span>
+      <p class="form-success" data-fs-success>You're on the list! We'll be in touch before Q1 boxes ship.</p>
     </div>
   </section>
 
@@ -883,18 +906,11 @@
   </footer>
 
   <script>
-    function handleSubmit(e) {
-      e.preventDefault();
-      const email = e.target.querySelector('input[type="email"]').value;
-      const btn = e.target.querySelector('button');
-      btn.textContent = 'You\'re on the list!';
-      btn.style.background = '#059669';
-      btn.disabled = true;
-      e.target.querySelector('input[type="email"]').disabled = true;
-      // In production: POST to your email capture endpoint
-      console.log('Waitlist signup:', email);
-    }
+    window.formspree = window.formspree || function () { (formspree.q = formspree.q || []).push(arguments); };
+    formspree('initForm', { formElement: '#signup',   formId: 'mqewlvko' });
+    formspree('initForm', { formElement: '#cta-form', formId: 'mqewlvko' });
   </script>
+  <script src="https://unpkg.com/@formspree/ajax@1" defer></script>
 
 </body>
 </html>
