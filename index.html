@@ -643,7 +643,7 @@
   </nav>
 
   <!-- ── Hero ── -->
-  <section style="padding: 0;">
+  <section id="signup" style="padding: 0;">
     <div class="hero">
       <div class="hero-copy">
         <div class="hero-eyebrow">Ages 18 months to 4 years</div>
@@ -653,7 +653,7 @@
           Nimble gives you both — a child engaged in something that actually builds their
           hands and brain, and 20 to 30 minutes you can take back without the guilt.
         </p>
-        <form class="hero-form" id="signup">
+        <form class="hero-form" id="signup-form">
           <input type="email" name="email" placeholder="Your email address" required data-fs-field />
           <button type="submit" data-fs-submit-btn>Join the waitlist</button>
         </form>
@@ -907,7 +907,7 @@
 
   <script>
     window.formspree = window.formspree || function () { (formspree.q = formspree.q || []).push(arguments); };
-    formspree('initForm', { formElement: '#signup',   formId: 'mqewlvko' });
+    formspree('initForm', { formElement: '#signup-form', formId: 'mqewlvko' });
     formspree('initForm', { formElement: '#cta-form', formId: 'mqewlvko' });
   </script>
   <script src="https://unpkg.com/@formspree/ajax@1" defer></script>
